@@ -21,7 +21,7 @@ module CarrierWave
 
         let(:identifier)      { uploader.identifier }
         let(:storage)         { StorageProvider.new uploader }
-        let(:file)            { mock 'File to store.', file_properties }
+        let(:file)            { double 'File to store.', file_properties }
         let(:file_properties) { { original_filename: 'o_sample.png',
                                   content_type:      'image/png',
                                   size:              123,
@@ -29,10 +29,10 @@ module CarrierWave
                                   read:              1337 } }
 
         let(:mock_rails_url_helpers) do
-          article = mock 'Article 1'
+          article = double 'Article 1'
           article.stub_chain('class.to_s') { 'Article' } # Avoid dynamic creation of a named class.
 
-          url_helpers = mock 'Rails URL helpers module'
+          url_helpers = double 'Rails URL helpers module'
           url_helpers.should_receive(:article_path).with(article).and_return('/articles/1')
 
           stub_const('::Rails', 'Rails')
